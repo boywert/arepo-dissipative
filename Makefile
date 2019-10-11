@@ -65,7 +65,18 @@ HWLOC_INCL= -I/opt/local/include
 endif
 
 # insert the library paths for your system here, similar to SYSTYPE "Darwin" above
-
+ifeq ($(SYSTYPE),"HI-Garpur")
+CC       =  mpicc
+OPTIMIZE =  -O3
+GSL_INCL =  -I/users/home/boyd/local/include
+GSL_LIBS =  -L/users/home/boyd/local/lib #-static
+FFTW_INCL=  -I/users/home/boyd/local/include
+FFTW_LIBS=  -L/users/home/boyd/local/lib
+#MPICHLIB =  -L/opt/local/lib/mpich-mp -lmpich
+HDF5INCL =  -I/users/home/boyd/local/include -DH5_USE_16_API
+HDF5LIB  =  -L/users/home/boyd/local/lib  -lhdf5 #-lz
+#OPT     += -DNOTYPEPREFIX_FFTW
+endif
 
 ifndef LINKER
 LINKER = $(CC)
@@ -292,18 +303,7 @@ HWLOC_INCL =
 HWLOC_LIB = 
 endif
 
-ifeq ($(SYSTYPE),"HI-Garpur")
-CC       =  mpicc
-OPTIMIZE =  -O3
-GSL_INCL =  -I/users/home/boyd/local/include
-GSL_LIBS =  -L/users/home/boyd/local/lib #-static
-FFTW_INCL=  -I/users/home/boyd/local/include
-FFTW_LIBS=  -L/users/home/boyd/local/lib
-#MPICHLIB =  -L/opt/local/lib/mpich-mp -lmpich
-HDF5INCL =  -I/users/home/boyd/local/include -DH5_USE_16_API
-HDF5LIB  =  -L/users/home/boyd/local/lib  -lhdf5 #-lz
-#OPT     += -DNOTYPEPREFIX_FFTW
-endif
+
 
 ##########################
 #combine compiler options#
